@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>550</width>
+    <height>450</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Telegram Audio Downloader (Pro)</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">
+    QMainWindow {
+        background-color: #f4f6f9;
+    }
+    QLabel {
+        font-family: &quot;Khmer OS Battambang&quot;, &quot;Leelawadee UI&quot;, &quot;Segoe UI&quot;;
+        font-size: 14px;
+        color: #333333;
+        font-weight: bold;
+    }
+    QLineEdit {
+        font-family: &quot;Segoe UI&quot;, &quot;Khmer OS Battambang&quot;;
+        font-size: 13px;
+        padding: 8px 12px;
+        border: 2px solid #cbd5e1;
+        border-radius: 6px;
+        background-color: #ffffff;
+        color: #334155;
+    }
+    QLineEdit:focus {
+        border: 2px solid #2481cc;
+    }
+    QPushButton {
+        font-family: &quot;Khmer OS Battambang&quot;, &quot;Leelawadee UI&quot;;
+        font-size: 14px;
+        font-weight: bold;
+        color: #ffffff;
+        background-color: #2481cc;
+        border: none;
+        border-radius: 6px;
+    }
+    QPushButton:hover {
+        background-color: #1a6fa3;
+    }
+    QPushButton:pressed {
+        background-color: #155a85;
+    }
+    QPushButton:disabled {
+        background-color: #cbd5e1;
+        color: #94a3b8;
+    }
+    QTextBrowser {
+        font-family: &quot;Consolas&quot;, &quot;Khmer OS Battambang&quot;;
+        font-size: 12px;
+        background-color: #1e1e2e;
+        color: #abe9b3;
+        border: 1px solid #313244;
+        border-radius: 6px;
+        padding: 10px;
+    }
+   </string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <property name="spacing">
+     <number>15</number>
+    </property>
+    <property name="leftMargin">
+     <number>25</number>
+    </property>
+    <property name="topMargin">
+     <number>25</number>
+    </property>
+    <property name="rightMargin">
+     <number>25</number>
+    </property>
+    <property name="bottomMargin">
+     <number>25</number>
+    </property>
+    <item>
+     <widget class="QLabel" name="label">
+      <property name="text">
+       <string>📥 សូមបញ្ចូលលីងសារ Telegram (លីង Public ឬ Private Group)៖</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="link_input">
+      <property name="placeholderText">
+       <string>ដាក់លីងនៅទីនេះ... (https://t.me/...)</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="download_btn">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>45</height>
+       </size>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="text">
+       <string>⚡ ចាប់ផ្តើមទាញយកឯកសារ (Download)</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QTextBrowser" name="log_output"/>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
