@@ -56,7 +56,12 @@ async def download_handler(event):
             print(f"[!] បដិសេធ៖ Chat '{chat_title}' មិនត្រូវគ្នានឹង '{TARGET_GROUP_TITLE}' ឡើយ។")
             return
 
-        status_message = await event.reply("[~] កំពុងពិនិត្យមើលលីង និងស្វែងរកសារ... ⏳")
+        # ផ្ញើសារ Status ប្រាប់ និងលុបសារ Past Link ដើមចោលភ្លាមៗ ដើម្បីកុំឱ្យគេចុចលើ Link នោះបាន
+        status_message = await bot.send_message(event.chat_id, "[~] កំពុងពិនិត្យមើលលីង និងស្វែងរកសារ... ⏳")
+        try:
+            await event.delete()
+        except Exception:
+            pass
 
         # បំបែកលីងស្វែងរក Group ID និង Message ID
         if 't.me/c/' in link:
@@ -102,12 +107,6 @@ async def download_handler(event):
             if os.path.exists(path):
                 os.remove(path)
             await status_message.delete()
-
-            # លុបសារដើមរបស់អ្នកប្រើប្រាស់ (Past Link) ដើម្បីកុំឱ្យបង្ហាញ Link ទៅកាន់ Source Group ដើម
-            try:
-                await event.delete()
-            except Exception:
-                pass
         else:
             await status_message.edit("[X] សារតាមលីងនេះ មិនមែនជា File Audio ឬ Voice ឡើយ!")
 
