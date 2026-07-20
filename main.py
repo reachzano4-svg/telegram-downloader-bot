@@ -7,7 +7,7 @@ from telethon import TelegramClient
 from qasync import QEventLoop, asyncSlot
 
 # 🔴 ផ្លាស់ប្តូរព័ត៌មាន API របស់អ្នកនៅទីនេះ
-API_ID = 1234567          # ដាក់ api_id របស់អ្នក (ជាលេខ)
+API_ID = 35511201          # ដាក់ api_id របស់អ្នក (ជាលេខ)
 API_HASH = '1cc2b5a851cad8cbe06f9e7cb8f019cc'  # ដាក់ api_hash របស់អ្នក
 
 OUTPUT_DIR = 'downloaded_audio'

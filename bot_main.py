@@ -1,11 +1,24 @@
+import sys
 import os
 import re
 import asyncio
 from telethon import TelegramClient, events
 
-# 🔴 ផ្លាស់ប្តូរព័ត៌មានពិតប្រាកដរបស់អ្នកនៅទីនេះ (គូកូដដែលធ្លាប់ដើរក្នុង main.py)
-API_ID = 1234567                           # ដាក់ API ID ពិតរបស់អ្នក (ជាលេខ)
-API_HASH = '1cc2b5a851cad8cbe06f9e7cb8f019cc'   # ដាក់ API HASH ពិតរបស់អ្នក
+# Force UTF-8 stdout/stderr for Windows console Khmer support
+if sys.stdout and hasattr(sys.stdout, 'reconfigure'):
+    try:
+        sys.stdout.reconfigure(encoding='utf-8')
+    except Exception:
+        pass
+if sys.stderr and hasattr(sys.stderr, 'reconfigure'):
+    try:
+        sys.stderr.reconfigure(encoding='utf-8')
+    except Exception:
+        pass
+
+# 🔴 ផ្លាស់ប្តូរព័ត៌មានពិតប្រាកដរបស់អ្នកនៅទីនេះ
+API_ID = 35511201                           # API ID ពិតប្រាកដ
+API_HASH = '1cc2b5a851cad8cbe06f9e7cb8f019cc'   # API HASH ពិតប្រាកដ
 
 TMP_DIR = 'tmp_audio'
 if not os.path.exists(TMP_DIR):
