@@ -1,5 +1,18 @@
+import sys
 import asyncio
 from telethon import TelegramClient
+
+# Force UTF-8 stdout/stderr for Windows console Khmer support
+if sys.stdout and hasattr(sys.stdout, 'reconfigure'):
+    try:
+        sys.stdout.reconfigure(encoding='utf-8')
+    except Exception:
+        pass
+if sys.stderr and hasattr(sys.stderr, 'reconfigure'):
+    try:
+        sys.stderr.reconfigure(encoding='utf-8')
+    except Exception:
+        pass
 
 # 🔴 ត្រូវប្រាកដថា API_ID និង API_HASH នេះត្រូវគ្នានឹងកូដក្នុង main.py
 API_ID = 35511201          # ដាក់ api_id របស់អ្នក (ជាលេខ)
