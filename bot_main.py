@@ -16,10 +16,18 @@ bot = TelegramClient('my_telegram_session', API_ID, API_HASH)
 
 print("[~] កំពុងចាប់ផ្តើមប្រព័ន្ធទាញយកស្វ័យប្រវត្តិតាម Group... សូមរង់ចាំ...")
 
-# ចាប់យកលីងដែលផ្ញើចេញពីគណនីរបស់អ្នក នៅក្នុង Chat ឬ Group ណាក៏ដោយ
-@bot.on(events.NewMessage(incoming=False))
+TARGET_GROUP_TITLE = "My Audio Downloader Group"
+
+# ចាប់យកលីងដែលផ្ញើនៅក្នុង Group "My Audio Downloader Group"
+@bot.on(events.NewMessage())
 async def download_handler(event):
-    link = event.text.strip()
+    # ពិនិត្យមើលថាជា Group "My Audio Downloader Group" ឬទេ
+    chat = await event.get_chat()
+    chat_title = getattr(chat, 'title', '')
+    if chat_title.strip() != TARGET_GROUP_TITLE:
+        return
+
+    link = event.text.strip() if event.text else ''
     
     # បើគ្មានលីង Telegram ទេ មិនបាច់ធ្វើការឡើយ
     if 't.me/' not in link:
@@ -65,12 +73,19 @@ async def download_handler(event):
             
             await status_message.edit("[~] កំពុងផ្ញើត្រឡប់ទៅកាន់លោកអ្នកវិញ... 📤")
             
-            # ផ្ញើ File Audio នោះចូលទៅក្នុង Chat/Group ដែអ្នកបានបោះលីងអម្បាញ់មិញ
+            # ផ្ញើ File Audio នោះចូលទៅក្នុង Chat/Group ដែលអ្នកបានបោះលីងអម្បាញ់មិញ
             await bot.send_file(event.chat_id, path, caption=f"🎯 ទាញយកជោគជ័យ៖ `{file_name}`")
             
-            # លុប File ចោលការពារណែនម៉ាស៊ីន
-            os.remove(path)
+            # លុប File បណ្តោះអាសន្ន និងសារ Status
+            if os.path.exists(path):
+                os.remove(path)
             await status_message.delete()
+
+            # លុបសារដើមរបស់អ្នកប្រើប្រាស់ (Past Link) ដើម្បីកុំឱ្យបង្ហាញ Link ទៅកាន់ Source Group ដើម
+            try:
+                await event.delete()
+            except Exception:
+                pass
         else:
             await status_message.edit("[X] សារតាមលីងនេះ មិនមែនជា File Audio ឬ Voice ឡើយ!")
 
