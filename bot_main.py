@@ -46,7 +46,13 @@ async def download_handler(event):
         if 't.me/' not in link:
             return
 
-        # ពិនិត្យមើលថាជា Group "My Audio Downloader Group" ឬទេ
+        # ⚡ 1. លុបសារ Past Link ដើមចោលជាបន្ទាន់ភ្លាមៗ (មុនធ្វើការងារផ្សេងៗ ដើម្បីកុំឱ្យគេទាន់ចុចបាន)
+        try:
+            await event.delete()
+        except Exception:
+            pass
+
+        # 2. ពិនិត្យមើលថាជា Group "My Audio Downloader Group" ឬទេ
         chat = event.chat or await event.get_chat()
         chat_title = getattr(chat, 'title', '') or ''
         
@@ -56,12 +62,8 @@ async def download_handler(event):
             print(f"[!] បដិសេធ៖ Chat '{chat_title}' មិនត្រូវគ្នានឹង '{TARGET_GROUP_TITLE}' ឡើយ។")
             return
 
-        # ផ្ញើសារ Status ប្រាប់ និងលុបសារ Past Link ដើមចោលភ្លាមៗ ដើម្បីកុំឱ្យគេចុចលើ Link នោះបាន
+        # 3. ផ្ញើសារ Status ប្រាប់រង់ចាំ
         status_message = await bot.send_message(event.chat_id, "[~] កំពុងពិនិត្យមើលលីង និងស្វែងរកសារ... ⏳")
-        try:
-            await event.delete()
-        except Exception:
-            pass
 
         # បំបែកលីងស្វែងរក Group ID និង Message ID
         if 't.me/c/' in link:
