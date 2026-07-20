@@ -3,6 +3,7 @@ import os
 import re
 import asyncio
 from telethon import TelegramClient, events
+from telethon.sessions import StringSession
 
 # Force UTF-8 stdout/stderr for Windows console Khmer support
 if sys.stdout and hasattr(sys.stdout, 'reconfigure'):
@@ -24,8 +25,12 @@ TMP_DIR = 'tmp_audio'
 if not os.path.exists(TMP_DIR):
     os.makedirs(TMP_DIR)
 
-# 🟢 ប្រើប្រាស់ Client តែមួយគត់ ដើម្បីកុំឱ្យជាន់ប្រព័ន្ធគ្នា
-bot = TelegramClient('my_telegram_session', API_ID, API_HASH)
+# 🟢 ប្រើប្រាស់ Client តែមួយគត់ (គាំទ្រទាំង Session String លើ Render និង Session File លើ Local)
+SESSION_STRING = os.environ.get("SESSION_STRING", "")
+if SESSION_STRING:
+    bot = TelegramClient(StringSession(SESSION_STRING), API_ID, API_HASH)
+else:
+    bot = TelegramClient('my_telegram_session', API_ID, API_HASH)
 
 print("[~] កំពុងចាប់ផ្តើមប្រព័ន្ធទាញយកស្វ័យប្រវត្តិតាម Group... សូមរង់ចាំ...")
 
