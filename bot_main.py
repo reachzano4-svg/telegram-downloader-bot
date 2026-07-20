@@ -21,21 +21,25 @@ TARGET_GROUP_TITLE = "My Audio Downloader Group"
 # ចាប់យកលីងដែលផ្ញើនៅក្នុង Group "My Audio Downloader Group"
 @bot.on(events.NewMessage())
 async def download_handler(event):
-    # ពិនិត្យមើលថាជា Group "My Audio Downloader Group" ឬទេ
-    chat = await event.get_chat()
-    chat_title = getattr(chat, 'title', '')
-    if chat_title.strip() != TARGET_GROUP_TITLE:
-        return
-
-    link = event.text.strip() if event.text else ''
-    
-    # បើគ្មានលីង Telegram ទេ មិនបាច់ធ្វើការឡើយ
-    if 't.me/' not in link:
-        return
-
-    status_message = await event.reply("[~] កំពុងពិនិត្យមើលលីង និងស្វែងរកសារ... ⏳")
-
     try:
+        link = event.text.strip() if event.text else ''
+        
+        # បើគ្មានលីង Telegram ទេ មិនបាច់ធ្វើការឡើយ
+        if 't.me/' not in link:
+            return
+
+        # ពិនិត្យមើលថាជា Group "My Audio Downloader Group" ឬទេ
+        chat = event.chat or await event.get_chat()
+        chat_title = getattr(chat, 'title', '') or ''
+        
+        print(f"[~] ទទួលបានលីងពី Chat: '{chat_title}' (Chat ID: {event.chat_id})")
+
+        if TARGET_GROUP_TITLE.lower() not in chat_title.lower():
+            print(f"[!] បដិសេធ៖ Chat '{chat_title}' មិនត្រូវគ្នានឹង '{TARGET_GROUP_TITLE}' ឡើយ។")
+            return
+
+        status_message = await event.reply("[~] កំពុងពិនិត្យមើលលីង និងស្វែងរកសារ... ⏳")
+
         # បំបែកលីងស្វែងរក Group ID និង Message ID
         if 't.me/c/' in link:
             match = re.search(r't\.me/c/(\d+)/(\d+)', link)
